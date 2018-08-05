@@ -1,6 +1,7 @@
 package com.functional.programming.app;
 
 import com.functional.programming.app.functionalinterface.BinaryIntOperation;
+import com.functional.programming.app.functionalinterface.HigherLevelFunctions;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,5 +41,30 @@ public class FunctionalInterfaceTest {
         double result = div.compute(operator1,operator2);
         assertThat(result).isEqualTo(2.0);
         System.out.println("Division:   " + result);
+    }
+
+    @Test
+    public void testRunable(){
+        Runnable runnable = () -> System.out.print("Hello Higher Order Functions.");
+        runnable.run();
+        assert(true);
+    }
+
+    @Test
+    public void testHigherLevelFunctionApply(){
+        HigherLevelFunctions higherLevelFunctions = new HigherLevelFunctions();
+        BinaryIntOperation div = (int operator1, int operator2) -> operator1 / operator2;
+
+        double result = higherLevelFunctions.apply(div, operator1, operator2);
+        assertThat(result).isEqualTo(2.0);
+        System.out.println("Division with HigherLevelFunction  " + result);
+    }
+
+    @Test
+    public void testHigherLevelFunctionApplyV2(){
+        HigherLevelFunctions higherLevelFunctions = new HigherLevelFunctions();
+        double result = higherLevelFunctions.apply((op1, op2) -> op1 * op2 , operator1, operator2);
+        assertThat(result).isEqualTo(10.0);
+        System.out.println("Multiplication with HigherLevelFunction  " + result);
     }
 }
