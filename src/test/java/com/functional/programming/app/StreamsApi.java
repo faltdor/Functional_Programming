@@ -1,8 +1,9 @@
 package com.functional.programming.app;
 
+import com.functional.programming.app.streamsapi.Item;
 import org.junit.Test;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -52,5 +53,16 @@ public class StreamsApi {
                 .filter(i -> (i & 0x1) == 0 )
                 .sum();
         System.out.println(result);
+    }
+
+    @Test
+    public  void testIntStreamCollectors(){
+        List<Item> items = IntStream.rangeClosed(1, 6)
+                                .mapToObj(i-> {
+                                    return  new Item();
+                                })
+                                .collect(Collectors.toList());
+        Set<Integer> itemsIds = items.stream().map(Item::getId).collect(Collectors.toCollection(TreeSet::new));
+        itemsIds.stream().forEach(System.out::println);
     }
 }
