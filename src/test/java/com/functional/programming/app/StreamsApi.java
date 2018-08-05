@@ -4,6 +4,7 @@ import com.functional.programming.app.streamsapi.Item;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -64,5 +65,22 @@ public class StreamsApi {
                                 .collect(Collectors.toList());
         Set<Integer> itemsIds = items.stream().map(Item::getId).collect(Collectors.toCollection(TreeSet::new));
         itemsIds.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public  void testIntStreamCollectorsWithFunction(){
+        List<Item> items = IntStream.rangeClosed(1, 6)
+                                .mapToObj(i-> {
+                                    return  new Item();
+                                })
+                                .collect(Collectors.toList());
+
+        Map<String, Item> itemsMap = items.stream().collect(Collectors.toMap(item -> item.getName().toLowerCase(),
+                                                                                        Function.identity()));
+        System.out.println("Keys:");
+        itemsMap.keySet().stream().forEach(System.out::println);
+
+        System.out.println("\nValues:");
+        itemsMap.values().stream().map(item -> item.getName()).forEach(System.out::println);
     }
 }
