@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class StreamsApi {
+public class StreamsApiTest {
 
     @Test
     public  void testStreamOf(){
