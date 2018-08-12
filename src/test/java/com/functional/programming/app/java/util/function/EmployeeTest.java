@@ -43,6 +43,6 @@ public class EmployeeTest {
                     .filter(isSalaryBetweenFourAndSixThousand)
                     .findFirst()
                     .get();
-           System.out.println("%n First Employee Who Earns 4000 To 6000 Per Month: " + employee.toString());
+           System.out.printf("%n First Employee Who Earns 4000 To 6000 Per Month: %n%s%n", employee);
     }
 }
