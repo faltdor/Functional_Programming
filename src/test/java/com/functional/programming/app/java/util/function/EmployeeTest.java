@@ -79,4 +79,20 @@ public class EmployeeTest {
                 .sorted(lastThenFirstComparator.reversed())
                 .forEach(System.out::println);
     }
+
+    @Test
+    public void testDisplayUniqueEmployeeLastNamesSorted() {
+        employees.stream()
+                .map(Employee::getLastName)
+                .distinct()
+                .sorted();
+    }
+
+    @Test
+    public void testDisplayFullNameSorted() {
+        employees.stream()
+                .sorted(lastThenFirstComparator)
+                .map(Employee::getName)
+                .forEach(System.out::println);
+    }
 }
