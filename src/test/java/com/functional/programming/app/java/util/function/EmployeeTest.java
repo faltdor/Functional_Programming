@@ -7,20 +7,40 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmployeeTest {
 
     Collection<Employee> employees;
 
+    /**
+     * Represents a predicate (boolean-valued function) of one argument.
+     * This is a functional interface whose functional method is test(Object).
+     */
     Predicate<Employee> isSalaryBetweenFourAndSixThousand = employee -> (employee.getSalary() >= 4000 &&
                                                                    employee.getSalary() <= 6000);
 
+    /**
+     * Represents a function that accepts one argument and produces a result.
+     * This is a functional interface whose functional method is apply(Object).
+     */
+    Function<Employee, String> byFirstName = Employee::getFirstName;
+    Function<Employee, String> byLastName = Employee::getLastName;
+
+    /**
+     * A comparison function, which imposes a total ordering on some collection of objects. Comparators can be passed to
+     * a sort method (such as Collections.sort or Arrays.sort) to allow precise control over the sort order. Comparators
+     * can also be used to control the order of certain data structures (such as sorted sets or sorted maps), or to
+     * provide an ordering for collections of objects that don't have a natural ordering.
+     */
+     Comparator<Employee> lastThenFirstComparator =
+                    Comparator.comparing(byLastName).thenComparing(byFirstName);
 
     @Before
     public void setUp(){
         employees = new ArrayList<>();
-        employees.add(new Employee("Jason", "Red", 4600, "IT"));
+        employees.add(new Employee("Jason", "Red", 7000, "IT"));
         employees.add(new Employee("Ashely", "Green", 10000, "IT"));
         employees.add(new Employee("Matthew", "Orange", 5060, "DV"));
         employees.add(new Employee("James", "Blue", 5700, "Sales"));
@@ -44,5 +64,12 @@ public class EmployeeTest {
                     .findFirst()
                     .get();
            System.out.printf("%n First Employee Who Earns 4000 To 6000 Per Month: %n%s%n", employee);
+    }
+
+    @Test
+    public void testSortEmployeesByLastNameThenByFirstName() {
+        employees.stream()
+                .sorted(lastThenFirstComparator)
+                .forEach(System.out::println);
     }
 }
