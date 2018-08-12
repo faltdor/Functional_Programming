@@ -34,7 +34,7 @@ public class EmployeeTest {
      * can also be used to control the order of certain data structures (such as sorted sets or sorted maps), or to
      * provide an ordering for collections of objects that don't have a natural ordering.
      */
-     Comparator<Employee> lastThenFirstComparator =
+    Comparator<Employee> lastThenFirstComparator =
                     Comparator.comparing(byLastName).thenComparing(byFirstName);
 
     @Before
@@ -70,6 +70,13 @@ public class EmployeeTest {
     public void testSortEmployeesByLastNameThenByFirstName() {
         employees.stream()
                 .sorted(lastThenFirstComparator)
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void testSortEmployeesByLastNameThenByFirstNameDescendingOrder() {
+        employees.stream()
+                .sorted(lastThenFirstComparator.reversed())
                 .forEach(System.out::println);
     }
 }
