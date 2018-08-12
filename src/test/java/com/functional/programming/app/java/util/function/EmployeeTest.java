@@ -30,10 +30,19 @@ public class EmployeeTest {
     }
 
     @Test
-    public void testEmployeesEarning4000_6000PerMonthSortedBySalary(){
+    public void testEmployeesEarning4000To6000PerMonthSortedBySalary(){
         employees.stream()
                 .filter(isSalaryBetweenFourAndSixThousand)
                 .sorted(Comparator.comparing(Employee::getSalary))
                 .forEach(System.out::println);
+    }
+
+    @Test
+    public void testFirstEmployeeWhoEarns4000To6000PerMonth(){
+           Employee employee = employees.stream()
+                    .filter(isSalaryBetweenFourAndSixThousand)
+                    .findFirst()
+                    .get();
+           System.out.println("%n First Employee Who Earns 4000 To 6000 Per Month: " + employee.toString());
     }
 }
