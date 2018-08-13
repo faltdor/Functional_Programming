@@ -4,11 +4,10 @@ import com.functional.programming.app.function.Employee;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class EmployeeTest {
 
@@ -94,5 +93,17 @@ public class EmployeeTest {
                 .sorted(lastThenFirstComparator)
                 .map(Employee::getName)
                 .forEach(System.out::println);
+    }
+
+    @Test
+    public void testGroupEmployeesByDeparment() {
+        Map<String, List<Employee>> groupedByDepartment =  employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+
+        groupedByDepartment.forEach((deparment, employeess) -> {
+            System.out.println(deparment);
+            employeess.forEach(employee -> System.out.printf("   %s%n", employee));
+        });
+
     }
 }
