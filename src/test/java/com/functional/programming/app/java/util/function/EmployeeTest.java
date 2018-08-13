@@ -122,4 +122,20 @@ public class EmployeeTest {
 
         countByDepartment.forEach((deparment, total) -> System.out.printf("%s has %d employee(s)%n", deparment, total));
     }
+
+    @Test
+    public void testSumEmployeesSalaryWithSumFinalizer() {
+        Double sumOfSalaries = employees.stream()
+                .mapToDouble(Employee::getSalary)
+                .sum();
+        System.out.printf("Total of Salaries: %s%n", sumOfSalaries);
+    }
+
+    @Test
+    public void testSumEmployeesSalaryWithReduceFinalizer() {
+        Double sumOfSalaries = employees.stream()
+                .mapToDouble(Employee::getSalary)
+                .reduce(0,(value1, value2) -> value1 + value2);
+        System.out.printf("Total of Salaries: %s%n", sumOfSalaries);
+    }
 }
