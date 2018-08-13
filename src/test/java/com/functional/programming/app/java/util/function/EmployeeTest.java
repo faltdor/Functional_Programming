@@ -106,4 +106,20 @@ public class EmployeeTest {
         });
 
     }
+
+    @Test
+    public void testCountEmployeesByDeparmentAscendingOrder() {
+        Map<String, Long> countByDepartment =  employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,TreeMap::new, Collectors.counting()));
+
+        countByDepartment.forEach((deparment, total) -> System.out.printf("%s has %d employee(s)%n", deparment, total));
+    }
+
+    @Test
+    public void testCountEmployeesByDeparmentNotOrder() {
+        Map<String, Long> countByDepartment =  employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()));
+
+        countByDepartment.forEach((deparment, total) -> System.out.printf("%s has %d employee(s)%n", deparment, total));
+    }
 }
