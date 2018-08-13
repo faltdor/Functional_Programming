@@ -138,4 +138,14 @@ public class EmployeeTest {
                 .reduce(0,(value1, value2) -> value1 + value2);
         System.out.printf("Total of Salaries: %s%n", sumOfSalaries);
     }
+
+    @Test
+    public void testAverageEmployeesSalary() {
+        Double sumOfSalaries = employees.stream()
+                .mapToDouble(Employee::getSalary)
+                .average()
+                .getAsDouble();
+
+        System.out.printf("Average of Salaries: %s%n", sumOfSalaries);
+    }
 }
